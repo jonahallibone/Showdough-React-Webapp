@@ -1,6 +1,7 @@
 import React, { Component } from "react"
 
 import { withFirebase } from '../Firebase';
+import { Z_DEFAULT_COMPRESSION } from "zlib";
 
 class Feed extends Component {
     constructor(props) {
@@ -11,22 +12,28 @@ class Feed extends Component {
           complaints: []
         }
     }
-
     async componentDidMount() {
         this.setState({ loading: true});
-
-        let data = await this.props.firebase.complaints().get().then(querySnapshot => {
-            let feed = [];
-            querySnapshot.forEach(res => feed.push(res.data()));
-            console.log(feed)
-            this.setState({
-                complaints: feed,
-                loading: false
-            })
+        let data = await this.props.firebase.complaints().get().then((querySnapshot) => {
+            console.log(JSON.stringify(querySnapshot.ids))
+            return querySnapshot.docs.map(doc => {
+                let out = doc.data()
+                out.id = doc.id;
+                return out;
+            });
         });
+        console.log(data)
+
+        this.setState({
+            complaints: data,
+            loading: false
+        })
     }
 
+    componentWillUnmount() {
 
+    }
+    
 
     render() {
         const { complaints, loading } = this.state;
@@ -35,7 +42,7 @@ class Feed extends Component {
             <div>
                 <h1>Feed</h1>
                 {loading && <div>Loading ...</div>}
-                <ComplaintsList complaints={complaints}/>
+                {<ComplaintsList complaints={complaints}/>}
             </div>
         )
     }
@@ -45,7 +52,7 @@ class Feed extends Component {
 const ComplaintsList = ({ complaints }) => (
     <ul>
       {complaints.map(complaint => (
-        <li key={complaint.cid}>
+        <li key={complaint.id}>
           <span>
             <strong>ID:</strong> {complaint.cid}
           </span>
