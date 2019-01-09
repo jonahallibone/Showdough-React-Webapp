@@ -36,7 +36,11 @@ class ComplaintsList extends Component {
     }
 
     render() {
-        const { complaints } = this.props;
+        let { complaints } = this.props;
+
+        if (complaints.length < 1) {
+            complaints = [];
+        }
 
         return(
             <div id="feed">
@@ -54,6 +58,12 @@ class ComplaintsList extends Component {
                             </div>
                             <div>
                                 <strong>Longitude:</strong> {'loc' in complaint ? complaint.loc.longitude : ""}
+                            </div>
+                            <div>
+                                <strong>Up votes:</strong> {'up_vote' in complaint ? complaint.up_vote : ""}
+                            </div>
+                            <div>
+                                <strong>Down votes:</strong> {'down_votes' in complaint ? complaint.down_votes : ""}
                             </div>
                             <button onClick={() => {this.voteUp(complaint.id)} }>Up</button>
                             <button onClick={() => {this.voteDown(complaint.id)}}>Down</button>

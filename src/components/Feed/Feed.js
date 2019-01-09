@@ -16,20 +16,22 @@ class Feed extends Component {
     }
     async componentDidMount() {
         this.setState({ loading: true});
-        let data = await this.props.firebase.complaints().get().then((querySnapshot) => {
+        await this.props.firebase.complaints().onSnapshot((querySnapshot) => {
 
-            return querySnapshot.docs.map(doc => {
+            let data = querySnapshot.docs.map(doc => {
                 let out = doc.data()
                 out.id = doc.id;
                 return out;
             });
-        });
-        console.log(data)
 
-        this.setState({
-            complaints: data,
-            loading: false
-        })
+            this.setState({
+                complaints: data,
+                loading: false
+            })
+
+            return true;
+
+        });
     }
 
     componentWillUnmount() {
