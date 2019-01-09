@@ -1,6 +1,9 @@
 import React, { Component } from "react"
+import ComplaintsList from '../ComplaintsList/ComplaintsList';
 
 import { withFirebase } from '../Firebase';
+
+import './Feed.css';
 
 class Feed extends Component {
     constructor(props) {
@@ -39,7 +42,6 @@ class Feed extends Component {
 
         return (
             <div>
-                <h1>Feed</h1>
                 {loading && <div>Loading ...</div>}
                 {<ComplaintsList complaints={complaints}/>}
             </div>
@@ -48,28 +50,5 @@ class Feed extends Component {
       
 }
 
-const ComplaintsList = ({ complaints }) => (
-    <ul>
-      {complaints.map(complaint => (
-        <li key={complaint.id}>
-          <span>
-            <strong>ID:</strong> {complaint.cid}
-          </span>
-          <span>
-            <strong>Complaint:</strong> {complaint.complaint_text}
-          </span>
-          <span>
-            <strong>Votes:</strong> {complaint.votes}
-          </span>
-          <span>
-            <strong>Latitude:</strong> {'loc' in complaint ? complaint.loc.latitude : ""}
-          </span>
-          <span>
-            <strong>Longitude:</strong> {'loc' in complaint ? complaint.loc.longitude : ""}
-          </span>
-        </li>
-      ))}
-    </ul>
-  );
 
 export default withFirebase(Feed);
