@@ -59,7 +59,7 @@ const ComplaintsList = ({ complaints }) => (
             <strong>Complaint:</strong> {complaint.complaint_text}
           </span>
           <span>
-            <strong>Votes:</strong> {complaint.vote}
+            <strong>Votes:</strong> {complaint.votes}
           </span>
           <span>
             <strong>Latitude:</strong> {'loc' in complaint ? complaint.loc.latitude : ""}
