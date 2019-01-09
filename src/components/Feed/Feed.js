@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 
 import { withFirebase } from '../Firebase';
-import { Z_DEFAULT_COMPRESSION } from "zlib";
 
 class Feed extends Component {
     constructor(props) {
@@ -15,7 +14,7 @@ class Feed extends Component {
     async componentDidMount() {
         this.setState({ loading: true});
         let data = await this.props.firebase.complaints().get().then((querySnapshot) => {
-            console.log(JSON.stringify(querySnapshot.ids))
+
             return querySnapshot.docs.map(doc => {
                 let out = doc.data()
                 out.id = doc.id;
@@ -61,6 +60,12 @@ const ComplaintsList = ({ complaints }) => (
           </span>
           <span>
             <strong>Votes:</strong> {complaint.vote}
+          </span>
+          <span>
+            <strong>Latitude:</strong> {'loc' in complaint ? complaint.loc.latitude : ""}
+          </span>
+          <span>
+            <strong>Longitude:</strong> {'loc' in complaint ? complaint.loc.longitude : ""}
           </span>
         </li>
       ))}
