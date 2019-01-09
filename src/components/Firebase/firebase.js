@@ -1,4 +1,6 @@
 import app from 'firebase/app';
+import 'firebase/firestore';
+// import 'firebase/auth'; //Do later
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -11,11 +13,20 @@ const config = {
 
 class Firebase {
   constructor() {
-    app.initializeApp(config);
+    console.log(app.initializeApp(config));
 
+    // DB setup
+    this.db = app.firestore();
+
+    this.db.settings({
+      timestampsInSnapshots: true
+    });
     // Add Google Login here
+    // this.auth = app.auth();
 
   }
+
+  complaints = () => this.db.collection(`complaints`);
 }
 
 export default Firebase;
