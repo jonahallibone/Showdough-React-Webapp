@@ -1,7 +1,6 @@
 import React, { Component } from "react"
 
 import { withFirebase } from '../Firebase';
-import { Z_DEFAULT_COMPRESSION } from "zlib";
 
 class Feed extends Component {
     constructor(props) {
@@ -12,27 +11,22 @@ class Feed extends Component {
           complaints: []
         }
     }
+
     async componentDidMount() {
         this.setState({ loading: true});
 
         let data = await this.props.firebase.complaints().get().then(querySnapshot => {
-            return querySnapshot.forEach(data => data.data())
-        }).then(data => {
-            return data;
+            let feed = [];
+            querySnapshot.forEach(res => feed.push(res.data()));
+            console.log(feed)
+            this.setState({
+                complaints: feed,
+                loading: false
+            })
         });
-            
-        console.log(data)
-
-        this.setState({
-            complaints: data,
-            loading: false
-        })
     }
 
-    componentWillUnmount() {
 
-    }
-    
 
     render() {
         const { complaints, loading } = this.state;
@@ -41,7 +35,7 @@ class Feed extends Component {
             <div>
                 <h1>Feed</h1>
                 {loading && <div>Loading ...</div>}
-                {/* <ComplaintsList complaints={complaints}/> */}
+                <ComplaintsList complaints={complaints}/>
             </div>
         )
     }
@@ -60,9 +54,6 @@ const ComplaintsList = ({ complaints }) => (
           </span>
           <span>
             <strong>Votes:</strong> {complaint.vote}
-          </span>
-          <span>
-            <strong>Location:</strong> {complaint.loc}
           </span>
         </li>
       ))}
