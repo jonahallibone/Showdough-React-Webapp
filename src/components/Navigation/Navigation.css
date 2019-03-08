@@ -1,0 +1,36 @@
+.lists {
+    margin-top: 225px;
+    width: 100%;
+}
+
+.lists ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+}
+
+.lists ul li {
+    width: 100%;
+    padding: .75rem 1rem;
+    border-radius: 3px;
+    margin: 0 0 1rem 0;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 35px 1fr;
+    color: #747d8c;
+    font-weight: 800;
+}
+
+.lists ul li:hover {
+    color: #1e90ff;
+}
+
+.lists ul li:hover > svg{
+    color: #1e90ff;
+}

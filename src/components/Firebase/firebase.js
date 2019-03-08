@@ -1,6 +1,6 @@
 import app from 'firebase/app';
 import 'firebase/firestore';
-// import 'firebase/auth'; //Do later
+import 'firebase/auth'; //Do later
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -13,20 +13,38 @@ const config = {
 
 class Firebase {
   constructor() {
-    console.log(app.initializeApp(config));
+    //Initialize firebase app
+    app.initializeApp(config);
 
     // DB setup
     this.db = app.firestore();
 
+
     this.db.settings({
-      timestampsInSnapshots: true
+      // Deprecated
+      // timestampsInSnapshots: true
     });
-    // Add Google Login here
-    // this.auth = app.auth();
+     //Auth Setup
+     this.auth = new app.auth();
+     this.auth.setPersistence(app.auth.Auth.Persistence.SESSION)
+     this.facebookProvider = new app.auth.FacebookAuthProvider();
+     this.facebookProvider.addScope('email');
+
 
   }
 
-  complaints = () => this.db.collection(`complaints`);
+  events = () => this.db.collection(`events`);
+
+  // Check for previous login
+  
+  doSignInWithFacebook = async () => {
+    return await this.auth.signInWithPopup(this.facebookProvider);
+  }
+
+  setUpUser = (user) => this.user = user;
+
+  doSignOut = () => this.auth.signOut();
+
 }
 
 export default Firebase;

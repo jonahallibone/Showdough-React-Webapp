@@ -1,0 +1,80 @@
+header.page-header {
+    height: 100px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: row;
+    box-sizing: border-box;
+    padding: 0 3rem;
+    background: #FFF;
+    border-bottom: 1px solid #ced6e0;
+}
+
+header.page-header .header-right,
+header.page-header .header-left {
+    display: flex;
+    flex: 0 0 50%;
+    align-items: center;
+}
+
+header.page-header .header-left {
+    justify-content: flex-end;
+}
+
+.page-header-search {
+    border: 1px solid #ced6e0;
+    background: #f1f2f6;
+    box-shadow: 0 0 0px 0 rgb(0, 0, 0, 0.1);
+    border-radius: 4px;
+    margin-left: 3rem;
+    transition: .345s ease box-shadow;
+    padding: 0 .75rem;
+    display: flex;
+    align-items: center;
+}
+
+.page-header-search input {
+    font-size: 1rem;
+    outline: none;
+    font-weight: 700;
+    padding: .75rem;
+    background: transparent;
+    border: none;
+    min-width: 300px;
+}
+
+
+.page-header-search:focus {
+    box-shadow: 0 0 14px 0 rgb(0, 0, 0, 0.1);
+}
+
+.profile-button {
+    border: 1px solid #ced6e0;
+    padding: .75rem 1rem;
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: .9rem;
+}
+
+.noti-button {
+    border: 1px solid #ced6e0;
+    padding: .75rem;
+    margin-right: 1rem;
+    border-radius: 4px;
+}
+
+.header-link {
+    margin-right: 2rem;
+    font-weight: 500;
+    align-items: center;
+    display: flex;
+    color: #747d8c;
+}
+
+.header-link > svg {
+    margin-right: .75rem;
+}
+
+.header-link:last-of-type {
+    margin-right: 2rem;
+}

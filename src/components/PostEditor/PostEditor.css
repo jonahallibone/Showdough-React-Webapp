@@ -1,0 +1,10 @@
+.post-editor {
+    background: #FFF;
+    width: 100%;
+    border-radius: 4px;
+}
+
+.post-editor form {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+}
