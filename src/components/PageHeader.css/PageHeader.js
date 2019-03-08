@@ -11,12 +11,27 @@ class PageHeader extends Component {
     constructor(props) {
         super(props);
         
+        this.state = {
+            menuVisible: false
+        }
+    }
+
+    showMenu = () => {
+        this.setState({menuVisible: !this.state.menuVisible})
+    }
+
+    logout = () => {
+        this.props.firebase.firebase.doSignOut();
+    }
+
+    goToProfile = () => {
+        const {history} = this.props;
+        history.push("/profile")
     }
     
 
     render() {
         const {user} = this.props.firebase;
-        console.log(user);
         return(
             <header className="page-header">
                 <div className="header-right">
@@ -44,7 +59,19 @@ class PageHeader extends Component {
                     </button>
                     {
                         this.props.firebase.user ? 
-                            <Link to="/profile" className="profile-button">{user.displayName}</Link>
+                            <button className="profile-button" onClick={this.showMenu}>
+                                {user.displayName}
+                                <div className="header-drop-down">
+                                    <div className={`header-profile-menu ${this.state.menuVisible ? "visible" : ""}`}>
+                                        <button onClick={this.goToProfile}>
+                                            Profile
+                                        </button>
+                                        <button onClick={this.logout}>
+                                            Logout
+                                        </button>
+                                    </div>
+                                </div>
+                            </button>
                         :
                             <Link to="/login" className="profile-button">Login</Link>
                     }

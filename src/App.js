@@ -23,8 +23,7 @@ class App extends Component {
 
     this.state = {
       firebase: firebase,
-      user: {},
-      setUser: this.setUser
+      setUser: this.setUser,
     }
 
   }
@@ -35,7 +34,9 @@ class App extends Component {
         if (user) {
           this.setState({user: user});
         }
-     });
+
+        else this.setState({user: undefined});
+      });
   }
 
   render() {
