@@ -16,7 +16,7 @@ class MainList extends Component {
     }
     async componentDidMount() {
         this.setState({ loading: true});
-        await this.props.firebase.events().onSnapshot((querySnapshot) => {
+        await this.props.firebase.firebase.events().onSnapshot((querySnapshot) => {
 
             let data = querySnapshot.docs.map(doc => {
                 let out = doc.data()
@@ -40,7 +40,7 @@ class MainList extends Component {
         return(
             <div className="main-list">
                 {loading && <div>Loading ...</div>}
-                {events.map(event => <EventListing event={event}/>)}
+                {events.map((event, index) => <EventListing event={event} key={`event-${index}`}/>)}
             </div>
         )
     }
