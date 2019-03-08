@@ -55,7 +55,7 @@ class PageHeader extends Component {
                     </button>
                     {
                         this.props.firebase.user ? 
-                            <button className="profile-button">
+                            <span className="profile-button" tabIndex="-1">
                                 {user.displayName}
                                 <div className="header-drop-down">
                                     <div className={`header-profile-menu ${this.state.menuVisible ? "visible" : ""}`}>
@@ -67,7 +67,7 @@ class PageHeader extends Component {
                                         </button>
                                     </div>
                                 </div>
-                            </button>
+                            </span>
                         :
                             <Link to="/login" className="profile-button">Login</Link>
                     }

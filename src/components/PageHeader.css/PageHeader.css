@@ -55,6 +55,7 @@ header.page-header .header-left {
     font-weight: 500;
     font-size: 1rem;
     position: relative;
+    cursor: pointer;
 }
 
 .noti-button {
@@ -93,9 +94,10 @@ header.page-header .header-left {
     width: 100%;
     text-align: center;
     left: 0;
-    top: 50px;
+    top: 0;
+    margin-top: 50px;
     opacity: 0;
-    visibility: none;
+    visibility: hidden;
     transition: visibility 0s linear .15s, opacity .15s ease, transform .15s ease;
     transform: translateY(10px);
 }

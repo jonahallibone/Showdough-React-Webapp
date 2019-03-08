@@ -4,7 +4,9 @@ html,body {
   overflow: hidden;
   font-family: 'Heebo', sans-serif;
 }
-
+* {
+  outline: none;
+}
 .App {
   min-height: 100vh;
   width: 100%;
@@ -119,4 +121,5 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
