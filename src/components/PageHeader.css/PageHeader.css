@@ -100,7 +100,7 @@ header.page-header .header-left {
     transform: translateY(10px);
 }
 
-.header-profile-menu.visible {
+.profile-button:focus .header-profile-menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);

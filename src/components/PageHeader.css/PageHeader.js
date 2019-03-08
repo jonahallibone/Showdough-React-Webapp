@@ -16,10 +16,6 @@ class PageHeader extends Component {
         }
     }
 
-    showMenu = () => {
-        this.setState({menuVisible: !this.state.menuVisible})
-    }
-
     logout = () => {
         this.props.firebase.firebase.doSignOut();
     }
@@ -59,7 +55,7 @@ class PageHeader extends Component {
                     </button>
                     {
                         this.props.firebase.user ? 
-                            <button className="profile-button" onClick={this.showMenu}>
+                            <button className="profile-button">
                                 {user.displayName}
                                 <div className="header-drop-down">
                                     <div className={`header-profile-menu ${this.state.menuVisible ? "visible" : ""}`}>
