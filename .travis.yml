@@ -1,6 +1,7 @@
 language: node_js
 node_js:
   - "node"
+warnings_are_errors: false
 install:
   - npm install
 script:
