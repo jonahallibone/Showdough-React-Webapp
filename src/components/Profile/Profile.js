@@ -13,6 +13,11 @@ class Profile extends React.Component {
         const { user } = this.props.firebase
         return(
             <div id="profile">
+                <div className="profile-header">
+                    <button className="add-new-event">
+                        Add New Event
+                    </button>
+                </div>
                 <h4 className="sub">OVERVIEW</h4>
                 <h1>Welcome back, {user.displayName}.</h1>
                 <PostEditor />

@@ -1,3 +1,28 @@
 h4.sub {
     color: #747d8c;
 }
+
+.profile-header {
+    padding: .75rem 3rem;
+    width: calc(100% + 6rem);
+    margin-left: -3rem;
+    border-bottom: 1px solid #ced6e0;
+}
+
+.add-new-event {
+    padding: .6rem 1rem;
+    background: #2ed573;
+    color: #FFF;
+    border-radius: 4px;
+    font-size: .9rem;
+    font-weight: 500;
+    display: inline-flex;
+    margin-left: auto;
+    border: none;
+    transition: box-shadow .345s ease;
+    box-shadow: 0 0 14px rgba(0, 0, 0, 0);
+}
+
+.add-new-event:hover {
+    box-shadow: 0 0 14px rgba(46, 213, 115,.4);   
+}

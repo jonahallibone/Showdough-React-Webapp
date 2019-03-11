@@ -26,7 +26,7 @@ class Firebase {
     });
      //Auth Setup
      this.auth = new app.auth();
-     this.auth.setPersistence(app.auth.Auth.Persistence.SESSION)
+     this.auth.setPersistence(app.auth.Auth.Persistence.LOCAL)
      this.facebookProvider = new app.auth.FacebookAuthProvider();
      this.facebookProvider.addScope('email');
 
