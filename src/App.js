@@ -28,6 +28,7 @@ class App extends Component {
     this.state = {
       firebase: firebase,
       setUser: this.setUser,
+      location: null
     }
 
   }
