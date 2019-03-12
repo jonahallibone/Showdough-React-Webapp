@@ -100,6 +100,7 @@ header.page-header .header-left {
     visibility: hidden;
     transition: visibility 0s linear .15s, opacity .15s ease, transform .15s ease;
     transform: translateY(10px);
+    z-index: 9999;
 }
 
 .profile-button:focus .header-profile-menu {

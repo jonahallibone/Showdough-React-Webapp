@@ -10,7 +10,7 @@ import {
 import Navigation from "../Navigation/Navigation";
 import Login from "../Login/Login";
 import "./Layout.css";
-import PageHeader from '../PageHeader.css/PageHeader';
+import PageHeader from '../PageHeader/PageHeader';
 import MainList from '../MainList/MainList';
 import PostEditor from "../PostEditor/PostEditor";
 import Profile from "../Profile/Profile";

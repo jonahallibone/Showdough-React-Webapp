@@ -1,6 +1,7 @@
 import app from 'firebase/app';
+import firebase from 'firebase/app';
 import 'firebase/firestore';
-import 'firebase/auth'; //Do later
+import 'firebase/auth';
 
 const config = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -14,7 +15,7 @@ const config = {
 class Firebase {
   constructor() {
     //Initialize firebase app
-    app.initializeApp(config);
+    this.app = app.initializeApp(config);
 
     // DB setup
     this.db = app.firestore();
@@ -26,14 +27,15 @@ class Firebase {
     });
      //Auth Setup
      this.auth = new app.auth();
+
      this.auth.setPersistence(app.auth.Auth.Persistence.LOCAL)
      this.facebookProvider = new app.auth.FacebookAuthProvider();
      this.facebookProvider.addScope('email');
-
-
   }
 
   events = () => this.db.collection(`events`);
+
+  Geopoint = (long,lat) => new firebase.firestore.GeoPoint(long, lat)
 
   // Check for previous login
   

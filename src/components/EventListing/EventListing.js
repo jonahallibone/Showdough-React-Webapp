@@ -17,6 +17,10 @@ class EventListing extends Component {
                 <div className="event-listing-top">
                     <img src={event.image} alt="" className="img-block"/>
                 </div>
+                <div className="event-listing-middle">
+                    <p className="event-title">{event.title}</p>
+                    <p className="event-description">{event.description}</p>
+                </div>
                 <div className="event-listing-bottom">
                     <div className="flex-row width-100 event-bottom-item justify-start">
                         <div className="flex-row">
@@ -32,10 +36,6 @@ class EventListing extends Component {
                             <span>$5</span>
                         </div>
                     </div>
-                </div>
-                <div className="event-listing-middle">
-                    <p className="event-title">{event.title}</p>
-                    <p className="event-description">{event.description}</p>
                 </div>
             </div>
         )

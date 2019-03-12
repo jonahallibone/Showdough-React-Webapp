@@ -1,5 +1,26 @@
-.main-list {
+.main-list-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr;
+    min-height: 100vh;
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+}
+
+.main-list {
+    padding: 3rem 3rem;
+}
+
+.main-list h4 {
+    margin-bottom: 1.5rem;
+    color: #57606f;
+}
+
+.event-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-auto-rows: min-content;
     grid-gap: 2rem;
 }
