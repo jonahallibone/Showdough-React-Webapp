@@ -17,7 +17,7 @@ class EventMap extends React.Component {
         const {center} = this.props;
 
         return (    
-            center ?
+            center !== undefined ?
             <GoogleMap
                 defaultZoom={8}
                 defaultCenter={{ lat: parseFloat(center.latitude), lng: parseFloat(center.longitude) }}
