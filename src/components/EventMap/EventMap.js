@@ -15,11 +15,12 @@ class EventMap extends React.Component {
 
     render(){
         const {center} = this.props;
+        console.log(center);
 
         return (    
-            center !== undefined ?
+            center !== null ?
             <GoogleMap
-                defaultZoom={8}
+                defaultZoom={15}
                 defaultCenter={{ lat: parseFloat(center.latitude), lng: parseFloat(center.longitude) }}
                 >
                 {this.props.isMarkerShown && <Marker position={{ lat: -34.397, lng: 150.644 }} />}

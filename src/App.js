@@ -35,8 +35,11 @@ class App extends Component {
 
   getLocation() {
     return navigator.geolocation.getCurrentPosition(position => {
-      console.log(position);
-      this.setState({location: position})
+      
+      if(position) {
+        this.setState({location: position})
+      }
+      
     });
   }
 
