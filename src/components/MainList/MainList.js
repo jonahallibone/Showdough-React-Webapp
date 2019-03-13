@@ -56,7 +56,6 @@ class MainList extends Component {
            <EventMap 
             isMarkerShown
             center={this.props.firebase.location ? this.props.firebase.location.coords : null}
-            googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDoKI2dCYabfoaGRw0ah-PEkqZyGBjDES0&libraries=geometry,drawing,places"
             loadingElement={<div style={{ height: `100%` }} />}
             containerElement={<div style={{ height: `100%` }} />}
             mapElement={<div style={{ height: `100%` }} />}

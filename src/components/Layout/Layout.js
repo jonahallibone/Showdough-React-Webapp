@@ -30,6 +30,7 @@ class Layout extends Component {
                         <div className="layout-content">
                             <Switch history={history}>
                                 <Route exact path="/events" component={MainList}/> 
+                                <Route exact path="/new-event" component={PostEditor}/> 
                                 <Route exact path="/login" render={() => (
                                     user ?
                                     (

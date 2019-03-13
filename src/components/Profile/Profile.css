@@ -13,6 +13,8 @@ h4.sub {
 
 .profile-content {
     padding: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 .add-new-event {
@@ -31,4 +33,8 @@ h4.sub {
 
 .add-new-event:hover {
     box-shadow: 0 0 14px rgba(46, 213, 115,.4);   
+}
+
+.profile-bubble h4 {
+    color: #747d8c;
 }

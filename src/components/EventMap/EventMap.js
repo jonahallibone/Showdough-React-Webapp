@@ -30,4 +30,4 @@ class EventMap extends React.Component {
     }
 }
 
-export default withScriptjs(withGoogleMap(EventMap));
+export default withGoogleMap(EventMap);

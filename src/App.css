@@ -128,3 +128,100 @@ button {
   align-items: center;
   cursor: pointer;
 }
+
+
+/*************/
+/*Text Colors*/
+/*************/
+
+.text-grey {
+  color: #747d8c;
+}
+
+.text-blue {
+  color: #3742fa;  
+}
+
+.text-green {
+  color: #2ed573;
+}
+
+.text-white {
+  color: #FFF;
+}
+
+.text-white {
+  color: #2f3542;
+}
+
+.text-bold {
+  font-weight: 700;
+}
+
+.text-normal {
+  font-weight: 500;
+}
+
+.text-light {
+  font-weight: 400;
+}
+
+/*********/
+/*Spacing*/
+/*********/
+
+/*Padding*/
+
+.padding-3-rem {
+  padding: 3rem;
+}
+
+.padding-1-rem {
+  padding: 1rem;
+}
+
+.padding-half-rem {
+  padding: .5rem;
+}
+
+/*Padding Top*/
+
+.padding-top-3-rem {
+  padding-top: 3rem;
+}
+
+.padding-top-1-rem {
+  padding-top: 1rem;
+}
+
+.padding-top-half-rem {
+  padding-top: .5rem;
+}
+
+/*Padding Bottom*/
+
+.padding-bottom-3-rem {
+  padding-bottom: 3rem;
+}
+
+.padding-bottom-1-rem {
+  padding-bottom: 1rem;
+}
+
+.padding-bottom-half-rem {
+  padding-bottom: .5rem;
+}
+
+/*Margin*/
+
+.margin-3-rem {
+  margin: 3rem;
+}
+
+.margin-1-rem {
+  margin: 1rem;
+}
+
+.margin-half-rem {
+  margin: .5rem;
+}
