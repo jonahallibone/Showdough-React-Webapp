@@ -1,7 +1,7 @@
 .main-list-container {
     display: grid;
     grid-template-columns: 2fr 1fr;
-    min-height: 100vh;
+    min-height: calc(100vh - 100px);
 }
 
 #map {
@@ -11,6 +11,7 @@
 
 .main-list {
     padding: 3rem 3rem;
+    overflow-y: auto;
 }
 
 .main-list h4 {

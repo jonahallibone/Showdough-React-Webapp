@@ -27,7 +27,7 @@ class Layout extends Component {
                 <div className="app-layout">
                     <div className="layout-app-content">
                         <PageHeader history={history}></PageHeader>
-                        <div className="layout-content">
+                        <div className="layout-content-scroll">
                             <Switch history={history}>
                                 <Route exact path="/events" component={MainList}/> 
                                 <Route exact path="/new-event" component={PostEditor}/> 

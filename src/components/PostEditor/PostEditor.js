@@ -22,6 +22,19 @@ class PostEditor extends React.Component {
             .then(latLng => console.log('Success', latLng))
             .catch(error => console.error('Error', error));
     }
+
+    async addNewEvent() {
+        const {user, firebase} = this.props.firebase;
+        await firebase.events().add({
+            date: new Date("December 1, 2019"),
+            description: "Lorem ipsum baby!",
+            image: "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?cs=srgb&dl=action-athlete-barbell-841130.jpg&fm=jpg",
+            location: firebase.Geopoint(24.72504500749274, 58.74554729994484),
+            payout: 4.5,
+            title: "Test post",
+            userID: user.uid
+        })
+    }
     
     render() {
         return(
@@ -80,6 +93,11 @@ class PostEditor extends React.Component {
                     <div className="input-container col-span-6">
                         <label>Description</label>
                         <textarea />
+                    </div>
+                    <div className="input-container col-span-6">
+                        <button className="add-new-event" onClick={this.navToNewEvent}>
+                            Add New Event
+                        </button>
                     </div>
                 </form>
             </div>
