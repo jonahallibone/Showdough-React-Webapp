@@ -1,5 +1,4 @@
 import app from 'firebase/app';
-import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 
@@ -35,7 +34,7 @@ class Firebase {
 
   events = () => this.db.collection(`events`);
 
-  Geopoint = (long,lat) => new firebase.firestore.GeoPoint(long, lat)
+  Geopoint = (long,lat) => new app.firestore.GeoPoint(long, lat)
 
   // Check for previous login
   
