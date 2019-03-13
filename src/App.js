@@ -11,7 +11,6 @@ import Firebase, { FirebaseContext } from './components/Firebase';
 import Layout from "./components/Layout/Layout";
 
 import './App.css';
-import { app } from 'firebase';
 
 const firebase = new Firebase()
 class App extends Component {
@@ -39,14 +38,13 @@ class App extends Component {
       if(position) {
         this.setState({location: position})
       }
-      
+
     });
   }
 
   componentDidMount() {
     this.getLocation();
     firebase.auth.onAuthStateChanged(user => {
-        console.log(user)
         if (user) {
           this.setState({user: user});
         }

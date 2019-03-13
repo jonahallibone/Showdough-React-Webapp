@@ -52,7 +52,6 @@ class MainList extends Component {
     
     renderMap() {
         const {location} = this.props.firebase;
-        console.log(this.props.firebase.location);
         return (
            <EventMap 
             isMarkerShown

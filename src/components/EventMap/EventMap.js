@@ -15,7 +15,6 @@ class EventMap extends React.Component {
 
     render(){
         const {center} = this.props;
-        console.log(center);
 
         return (    
             center !== null ?

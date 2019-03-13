@@ -13,11 +13,9 @@ class Login extends Component {
     loginWithFacebook = () => {
         const {setUser} = this.props.firebase
 
-        // console.log(this.props)
         this.props.firebase.firebase
         .doSignInWithFacebook()
         .then(socialAuthUser => {
-            console.log(socialAuthUser);
             this.setState({ error: null });
             setUser(socialAuthUser.user);
 
