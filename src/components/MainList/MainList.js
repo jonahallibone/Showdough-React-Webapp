@@ -54,6 +54,7 @@ class MainList extends Component {
         const {location} = this.props.firebase;
         return (
            <EventMap 
+            events={this.state.events}
             isMarkerShown
             center={this.props.firebase.location ? this.props.firebase.location.coords : null}
             loadingElement={<div style={{ height: `100%` }} />}

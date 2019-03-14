@@ -9,3 +9,37 @@
     display: grid;
     grid-template-columns: repeat(12, 1fr);
 }
+
+/* Location Search */
+
+.location-search-input {
+    width: 100%;
+}
+
+.location-search-input:focus ~ .autocomplete-dropdown-container {
+    visibility: visible;
+}
+
+.autocomplete-dropdown-container {
+    padding: 1rem;
+    background: #FFF;
+    border-radius: 4px;
+    border: 1px solid #dfe4ea;
+    position: absolute;
+    width: 100%;
+    z-index: 2;
+    margin-top: 5px;
+    box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.15);
+    visibility: hidden;
+}
+
+.suggestion-item,
+.suggestion-item--active {
+    padding: .5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.suggestion-item--active {
+    background: #dfe4ea;
+}

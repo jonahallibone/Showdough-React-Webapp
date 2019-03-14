@@ -25,7 +25,6 @@ h4.sub {
     font-size: .9rem;
     font-weight: 500;
     display: inline-flex;
-    margin-left: auto;
     border: none;
     transition: box-shadow .345s ease;
     box-shadow: 0 0 14px rgba(0, 0, 0, 0);

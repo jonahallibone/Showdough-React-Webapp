@@ -88,6 +88,7 @@ a {
   display: flex;
   flex-direction: column;
   padding: 1rem 0;
+  position: relative;
 }
 
 .input-container.col-span-6 {
@@ -112,6 +113,7 @@ textarea {
   font-size: 1rem;
   transition: .345s ease border-color;
   font-weight: 500;
+  position: relative;
 }
 
 input[type="text"]:focus,
