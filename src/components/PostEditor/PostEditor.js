@@ -5,6 +5,9 @@ import PlacesAutocomplete, {
     getLatLng,
   } from 'react-places-autocomplete';
 import { withFirebase } from '../Firebase';
+import Dropzone from 'react-dropzone'
+import { FiX} from "react-icons/fi";
+
 
 class PostEditor extends React.Component {
 
@@ -12,7 +15,8 @@ class PostEditor extends React.Component {
         super(props);
         this.state = { 
             address: '',
-            coordinates: {}
+            coordinates: {},
+            files: []
         };
 
         this.locationField = React.createRef();
@@ -48,12 +52,58 @@ class PostEditor extends React.Component {
             userID: user.uid
         })
     }
+
+    setFiles(acceptedFiles) {
+        this.setState({files: acceptedFiles});
+    }
+
+    getPreviews() {
+        const {files} = this.state;
+
+        if(files.length) {
+            return files.map(file => {
+                const url = URL.createObjectURL(file);
+
+                return(
+                    <img src={url} className="img-block" key={url}/>
+                )
+            })
+        }
+
+        else return;
+    }
+
+    cancelPreviews = () => {
+        this.setState({files: []})
+    }
     
     render() {
         return(
             <div className="post-editor">
                 <h3>Create New Post</h3>
                 <form>
+                    <div className="input-container col-span-6">
+                        <Dropzone onDrop={acceptedFiles => this.setFiles(acceptedFiles)}>
+                            {({getRootProps, getInputProps}) => (
+                                <section>
+                                    { 
+                                    !this.state.files.length ?
+                                        <div {...getRootProps()}>
+                                            <input {...getInputProps()} />
+                                            <span className="dropzone">Drag & drop or click to upload event header image.</span>
+                                        </div>
+                                    :
+                                        <div className="thumbnails">
+                                            <div className="cancel-button" onClick={this.cancelPreviews}>
+                                                <FiX size="1.23rem" color="#FFF"/>
+                                            </div>
+                                            {this.getPreviews()}
+                                        </div>
+                                    }
+                                </section>
+                            )}
+                        </Dropzone>
+                    </div>
                     <div className="input-container col-span-6">
                         <label>Event Title</label>
                         <input type="text" />

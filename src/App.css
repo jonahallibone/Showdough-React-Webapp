@@ -135,6 +135,12 @@ button {
   cursor: pointer;
 }
 
+.img-block {
+  width: 100%;
+  display: block;
+}
+
+
 
 /*************/
 /*Text Colors*/
