@@ -4,7 +4,10 @@
   "private": true,
   "dependencies": {
     "firebase": "^5.8.4",
+    "moment": "^2.24.0",
     "react": "16.8.3",
+    "react-date-picker": "^7.4.0",
+    "react-day-picker": "^7.3.0",
     "react-dom": "16.8.3",
     "react-dropzone": "^10.0.6",
     "react-geolocated": "^2.4.1",

@@ -7,6 +7,16 @@ import PlacesAutocomplete, {
 import { withFirebase } from '../Firebase';
 import Dropzone from 'react-dropzone'
 import { FiX} from "react-icons/fi";
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import 'react-day-picker/lib/style.css';
+
+import MomentLocaleUtils, {
+  formatDate,
+  parseDate,
+} from 'react-day-picker/moment';
+
+import 'moment/locale/it';
+
 
 
 class PostEditor extends React.Component {
@@ -15,6 +25,9 @@ class PostEditor extends React.Component {
         super(props);
         this.state = { 
             address: '',
+            payout: '',
+            title: '',
+            description: '',
             coordinates: {},
             files: []
         };
@@ -43,12 +56,12 @@ class PostEditor extends React.Component {
         
         const {user, firebase} = this.props.firebase;
         await firebase.events().add({
-            date: new Date("December 1, 2019"),
-            description: "Lorem ipsum baby!",
+            date: this.state.date,
+            description: this.state.description,
             image: "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?cs=srgb&dl=action-athlete-barbell-841130.jpg&fm=jpg",
             location: firebase.Geopoint(this.state.coordinates.lat, this.state.coordinates.lng),
-            payout: 4.5,
-            title: "Test post",
+            payout: this.state.payout,
+            title: this.state.title,
             userID: user.uid
         })
     }
@@ -75,6 +88,10 @@ class PostEditor extends React.Component {
 
     cancelPreviews = () => {
         this.setState({files: []})
+    }
+
+    handleDayChange = day => {
+        this.setState({ selectedDay: day });
     }
     
     render() {
@@ -109,8 +126,17 @@ class PostEditor extends React.Component {
                         <input type="text" />
                     </div>
                     <div className="input-container col-span-6">
-                        <label>Date</label>
+                        <label>Payout</label>
                         <input type="text" />
+                    </div>
+                    <div className="input-container col-span-6">
+                        <label>Date</label>
+                        <DayPickerInput
+                            onDayChange={this.handleDayChange}
+                            formatDate={formatDate}
+                            parseDate={parseDate}
+                            placeholder={`${formatDate(new Date())}`}
+                        />
                     </div>
                     <div className="input-container col-span-6">
                         <label>Location</label>

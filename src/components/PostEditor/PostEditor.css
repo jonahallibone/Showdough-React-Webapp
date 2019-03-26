@@ -81,3 +81,37 @@
     right: .5rem;
     cursor: pointer;
 }
+
+
+
+/*****************/
+/** Date Picker **/
+/*****************/
+
+.react-date-picker__inputGroup {
+    background: #FFF;
+    border: 1px solid #DDD;
+    border-radius: 4px;
+}
+
+.react-date-picker__inputGroup > input {
+    border: none;
+    padding: .75rem .75rem;
+    font-size: 1rem;
+    min-width: 65px;
+}
+
+.react-date-picker__calendar {
+    z-index: 999999999;
+    display: none;
+}
+
+.react-date-picker--open .react-date-picker__calendar {
+    display: block;
+}
+
+.react-calendar__tile {
+    border: none;
+    background: #FFF;
+    /* font-size: .88rem; */
+}

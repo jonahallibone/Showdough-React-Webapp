@@ -104,6 +104,7 @@ a {
 }
 
 input[type="text"],
+input,
 textarea {
   outline: none;
   background: #FFF;
