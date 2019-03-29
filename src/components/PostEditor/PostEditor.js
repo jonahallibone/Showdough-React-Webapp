@@ -10,6 +10,10 @@ import { FiX} from "react-icons/fi";
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
 
+import CircularProgressbar from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
+
+
 import MomentLocaleUtils, {
   formatDate,
   parseDate,
@@ -29,7 +33,8 @@ class PostEditor extends React.Component {
             title: '',
             description: '',
             coordinates: {},
-            files: []
+            files: [],
+            percentage: 0
         };
 
         this.locationField = React.createRef();
@@ -51,10 +56,33 @@ class PostEditor extends React.Component {
             .catch(error => console.error('Error', error));
     }
 
+    setFiles(acceptedFiles) {
+        console.log(acceptedFiles);
+        this.setState({files: acceptedFiles});
+    }
+
     addNewEvent = async (e) => {
         e.preventDefault();
-        
+
         const {user, firebase} = this.props.firebase;
+        const {files} = this.state;
+        
+        //check for files
+        if(!files.length) return;
+
+        //Set up filename and upload task
+        const fileName = `${files[0].name.replace(/\s+/g, '-').toLowerCase()}-${new Date().getTime()}`;
+        let uploadTask = firebase.storage.child(fileName).put(files[0]);
+    
+
+        uploadTask.on('state_changed', 
+            snapshot => this.handleUploadStateChange(snapshot),
+            error => this.handleUploadError(error),
+            () => this.handleUploadSuccess(uploadTask) 
+        );
+
+        return;
+
         await firebase.events().add({
             date: this.state.date,
             description: this.state.description,
@@ -66,9 +94,23 @@ class PostEditor extends React.Component {
         })
     }
 
-    setFiles(acceptedFiles) {
-        this.setState({files: acceptedFiles});
+    handleUploadStateChange(snapshot) {
+        var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        this.setState({percentage: Math.round(progress)});
     }
+
+    handleUploadError(error) {
+        console.log(error);
+    }
+
+    handleUploadSuccess(uploadTask) {
+        console.log(uploadTask);
+        // uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+        //     console.log('File available at', downloadURL);
+        // });
+    }
+
+
 
     getPreviews() {
         const {files} = this.state;
@@ -95,6 +137,7 @@ class PostEditor extends React.Component {
     }
     
     render() {
+        const { percentage } = this.state;
         return(
             <div className="post-editor">
                 <h3>Create New Post</h3>
@@ -185,6 +228,10 @@ class PostEditor extends React.Component {
                         <button className="add-new-event" onClick={this.addNewEvent}>
                             Add New Event
                         </button>
+                        <CircularProgressbar
+                            percentage={percentage}
+                            text={`${percentage}%`}
+                        />
                     </div>
                 </form>
             </div>
