@@ -34,7 +34,8 @@ class PostEditor extends React.Component {
             description: '',
             coordinates: {},
             files: [],
-            percentage: 0
+            percentage: 0,
+            fileURL: ""
         };
 
         this.locationField = React.createRef();
@@ -80,18 +81,6 @@ class PostEditor extends React.Component {
             error => this.handleUploadError(error),
             () => this.handleUploadSuccess(uploadTask) 
         );
-
-        return;
-
-        await firebase.events().add({
-            date: this.state.date,
-            description: this.state.description,
-            image: "https://images.pexels.com/photos/841130/pexels-photo-841130.jpeg?cs=srgb&dl=action-athlete-barbell-841130.jpg&fm=jpg",
-            location: firebase.Geopoint(this.state.coordinates.lat, this.state.coordinates.lng),
-            payout: this.state.payout,
-            title: this.state.title,
-            userID: user.uid
-        })
     }
 
     handleUploadStateChange(snapshot) {
@@ -103,11 +92,24 @@ class PostEditor extends React.Component {
         console.log(error);
     }
 
-    handleUploadSuccess(uploadTask) {
-        console.log(uploadTask);
-        // uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-        //     console.log('File available at', downloadURL);
-        // });
+    handleUploadSuccess = (uploadTask) => {
+        const {user, firebase} = this.props.firebase;
+        console.log(this.state.date);
+        uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+            firebase.events().add({
+                date: this.state.date,
+                description: this.state.description,
+                image: downloadURL,
+                location: firebase.Geopoint(this.state.coordinates.lat, this.state.coordinates.lng),
+                payout: this.state.payout,
+                title: this.state.title,
+                userID: user.uid
+            });
+        });
+    }
+
+    async doUploadPost () {
+
     }
 
 
@@ -133,7 +135,7 @@ class PostEditor extends React.Component {
     }
 
     handleDayChange = day => {
-        this.setState({ selectedDay: day });
+        this.setState({ date: day });
     }
     
     render() {
@@ -141,7 +143,7 @@ class PostEditor extends React.Component {
         return(
             <div className="post-editor">
                 <h3>Create New Post</h3>
-                <form>
+                <form onSubmit={this.addNewEvent}>
                     <div className="input-container col-span-6">
                         <Dropzone onDrop={acceptedFiles => this.setFiles(acceptedFiles)}>
                             {({getRootProps, getInputProps}) => (
@@ -225,7 +227,7 @@ class PostEditor extends React.Component {
                         <textarea />
                     </div>
                     <div className="input-container col-span-6">
-                        <button className="add-new-event" onClick={this.addNewEvent}>
+                        <button type="submit" className="add-new-event">
                             Add New Event
                         </button>
                         <CircularProgressbar

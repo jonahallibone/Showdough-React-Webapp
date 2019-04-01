@@ -13,7 +13,7 @@ class EventListing extends Component {
     render() {
         const {event} = this.props;
         return(
-            <div className="event-listing">
+            <div className="event-listing" onClick={this.props.onClick}>
                 <div className="event-listing-top">
                     <img src={event.image} alt="" className="img-block"/>
                 </div>

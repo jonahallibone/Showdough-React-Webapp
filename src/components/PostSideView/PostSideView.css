@@ -1,0 +1,8 @@
+.post-side-view {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background: #FFF;
+    transform: translateX(100%);
+    transition: .345s ease transform;
+}

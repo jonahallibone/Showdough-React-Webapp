@@ -15,7 +15,6 @@ class EventMap extends React.Component {
 
     render(){
         const {center, events} = this.props;
-        console.log(events)
         return (    
             center !== null ?
             <GoogleMap
