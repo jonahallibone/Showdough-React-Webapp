@@ -136,6 +136,12 @@ button {
   cursor: pointer;
 }
 
+button:disabled,
+button[disabled]{
+  background: #747d8c !important;
+  cursor: not-allowed;
+}
+
 .img-block {
   width: 100%;
   display: block;

@@ -39,8 +39,8 @@ class MainList extends Component {
     }
 
     setSelectedEvent(event) {
-        this.setState({selectedEvent: event})
         console.log(event);
+        this.setState({selectedEvent: event});
     }
 
     renderEvents = () => {
@@ -58,10 +58,10 @@ class MainList extends Component {
     }
     
     renderMap() {
-        const {location} = this.props.firebase;
+        const {selectedEvent} = this.state;
         return (
-            <div>
-                <PostSideView post={this.state.selectedPost}/>
+            <div style={{position: "relative"}}>
+                <PostSideView selectedEvent={selectedEvent}/>
                 <EventMap 
                 events={this.state.events}
                 isMarkerShown

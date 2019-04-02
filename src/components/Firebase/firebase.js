@@ -35,7 +35,7 @@ class Firebase {
   }
 
   events = () => this.db.collection(`events`);
-
+  ArrayUnion = (data) => new app.firestore.FieldValue.arrayUnion(data);
   Geopoint = (long,lat) => new app.firestore.GeoPoint(long, lat)
 
   // Check for previous login

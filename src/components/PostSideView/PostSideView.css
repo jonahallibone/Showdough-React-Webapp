@@ -5,4 +5,52 @@
     background: #FFF;
     transform: translateX(100%);
     transition: .345s ease transform;
+    z-index: 1;
+    box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.1);
+    overflow-y: scroll;
+    will-change: transform;
+}
+
+.post-side-view.open {
+    transform: translateX(0);
+}
+
+.side-view-top-image {
+    width: 100%;
+    height: 200px;
+    background: #212121;
+}
+
+.side-view-top-image > img {
+    height: 100%;
+    display: block;
+    width: 100%;
+    object-fit: contain;
+    box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.1);
+}
+
+.side-view-body {
+    padding: 2rem;
+    white-space: pre-wrap;
+}
+
+.side-view-bottom {
+    padding: .75rem 2rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: #FFF;
+    border-top: 1px solid #EDEDED;
+    box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.side-view-bottom > button {
+    padding: .75rem 1rem;
+    border-radius: 4px;
+    background: #3742fa;
+    color: #FFF;
+    font-size: 1rem;
+    border: none;
+    font-weight: bold;
 }
