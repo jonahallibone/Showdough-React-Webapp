@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { withFirebase } from '../Firebase';
 import EventListing from "../EventListing/EventListing";
-import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 import PostSideView from "../PostSideView/PostSideView";
 
 import "./MainList.css";
@@ -15,9 +13,11 @@ class MainList extends Component {
         this.state = {
           loading: false,
           events: [],
-          selectedEvent: {}
+          selectedEvent: {},
+          selectedEventID: null
         }
     }
+    
     async componentDidMount() {
         this.setState({ loading: true});
         await this.props.firebase.firebase.events().orderBy("date", "asc").onSnapshot((querySnapshot) => {
@@ -39,8 +39,16 @@ class MainList extends Component {
     }
 
     setSelectedEvent(event) {
-        console.log(event);
-        this.setState({selectedEvent: event});
+        const { firebase } = this.props;
+
+        firebase.firebase.events().doc(event.id).onSnapshot((doc) => {
+            console.log(doc.data());
+
+            this.setState({selectedEvent: doc.data(), selectedEventID: event.id});
+
+            return true;
+
+        });
     }
 
     renderEvents = () => {
@@ -58,18 +66,21 @@ class MainList extends Component {
     }
     
     renderMap() {
-        const {selectedEvent} = this.state;
+        const {selectedEvent, selectedEventID, events} = this.state;
         return (
             <div style={{position: "relative"}}>
-                <PostSideView selectedEvent={selectedEvent}/>
+                <PostSideView 
+                    event={selectedEvent} 
+                    eventID={selectedEventID}
+                />
                 <EventMap 
-                events={this.state.events}
-                isMarkerShown
-                center={this.props.firebase.location ? this.props.firebase.location.coords : null}
-                loadingElement={<div style={{ height: `100%` }} />}
-                containerElement={<div style={{ height: `100%` }} />}
-                mapElement={<div style={{ height: `100%` }} />}
-            />
+                    events={events}
+                    isMarkerShown
+                    center={this.props.firebase.location ? this.props.firebase.location.coords : null}
+                    loadingElement={<div style={{ height: `100%` }} />}
+                    containerElement={<div style={{ height: `100%` }} />}
+                    mapElement={<div style={{ height: `100%` }} />}
+                />
            </div>
         )
     }

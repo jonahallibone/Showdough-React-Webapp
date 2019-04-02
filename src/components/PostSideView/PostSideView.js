@@ -1,57 +1,58 @@
-import React, { useState,useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./PostSideView.css";
 import { withFirebase } from '../Firebase';
 
 
-function PostSideView({selectedEvent, firebase}) {
-    const signUpButton = useRef(null);
-    const [buttonText, setButtonText] = useState(0);
+function PostSideView({event, eventID, firebase}) {
+    const [buttonText, setButtonText] = useState("Sign Up!");
 
     useEffect(() => {
-        console.log(selectedEvent);
-        if(selectedEvent.subscribers) {
-            const found = selectedEvent.subscribers.some(el => el.id === firebase.user.uid);
+
+        if(Object.keys(event).length) {
+
+            const found = event.subscribers.some(el => el.id === firebase.user.uid);
+            console.log(found);
             if(found)  {
+                console.log("signed up");
                 setButtonText("Signed Up!");
-                signUpButton.current.disabled = true;
-            }           
+            }     
+            
+            else {
+                setButtonText("Sign Up!")
+            }     
         }
 
-        else {
-            setButtonText("Sign Up!")
-            signUpButton.current.disabled = false;
-        }
     });
 
-    async function handleSubscribe() {
-        signUpButton.current.disabled = true;
-
-        await firebase.firebase.events().doc(selectedEvent.id).update({
+    function handleSubscribe() {
+        
+        setButtonText("Signed Up!")
+        console.log(event);
+        
+        firebase.firebase.events().doc(eventID).update({
             subscribers: firebase.firebase.ArrayUnion({
                 name: firebase.user.displayName,
                 profile_picture: firebase.user.photoURL,
                 id: firebase.user.uid
             })
-        })
-
-        setButtonText("Signed Up!")
+        });
 
     }
     
     return (
-        <div className={`post-side-view ${Object.keys(selectedEvent).length ? "open" : ""}`}>
+        <div className={`post-side-view ${Object.keys(event).length ? "open" : ""}`}>
             <div className="side-view-top-image">
-                <img src={selectedEvent.image} />
+                <img src={event.image} />
             </div>
             <div className="side-view-body">
-                <h3>{selectedEvent.title}</h3>
-                <p>{selectedEvent.description}</p>
+                <h3>{event.title}</h3>
+                <p>{event.description}</p>
                 <ul>
-                    {selectedEvent.subscribers ? selectedEvent.subscribers.map(el => <li key={el.id}>{JSON.stringify(el)}</li>) : null}
+                    {event.subscribers ? event.subscribers.map(el => <li key={el.id}>{JSON.stringify(el)}</li>) : null}
                 </ul>
             </div>
             <div className="side-view-bottom">
-                <button ref={signUpButton} onClick={handleSubscribe}>{buttonText}</button>
+                <button disabled={buttonText === "Signed Up!" ? true : false} onClick={handleSubscribe}>{buttonText}</button>
             </div>
         </div>
     );
