@@ -40,6 +40,14 @@ class MainList extends Component {
 
     setSelectedEvent(event) {
         const { firebase } = this.props;
+        const { selectedEventID } = this.state;
+
+        //Close if already open
+        console.log(selectedEventID === event.id, selectedEventID, event.id)
+        if(selectedEventID === event.id) {
+            this.setState({ selectedEventID: null });
+            return;
+        }
 
         firebase.firebase.events().doc(event.id).onSnapshot((doc) => {
             console.log(doc.data());

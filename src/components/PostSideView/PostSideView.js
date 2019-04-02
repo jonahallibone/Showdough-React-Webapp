@@ -27,8 +27,7 @@ function PostSideView({event, eventID, firebase}) {
     function handleSubscribe() {
         
         setButtonText("Signed Up!")
-        console.log(event);
-        
+
         firebase.firebase.events().doc(eventID).update({
             subscribers: firebase.firebase.ArrayUnion({
                 name: firebase.user.displayName,
@@ -40,16 +39,14 @@ function PostSideView({event, eventID, firebase}) {
     }
     
     return (
-        <div className={`post-side-view ${Object.keys(event).length ? "open" : ""}`}>
+        <div className={`post-side-view ${eventID ? "open" : ""}`}>
             <div className="side-view-top-image">
                 <img src={event.image} />
             </div>
             <div className="side-view-body">
                 <h3>{event.title}</h3>
                 <p>{event.description}</p>
-                <ul>
-                    {event.subscribers ? event.subscribers.map(el => <li key={el.id}>{JSON.stringify(el)}</li>) : null}
-                </ul>
+                
             </div>
             <div className="side-view-bottom">
                 <button disabled={buttonText === "Signed Up!" ? true : false} onClick={handleSubscribe}>{buttonText}</button>

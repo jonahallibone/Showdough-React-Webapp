@@ -4,6 +4,15 @@ html,body {
   overflow: hidden;
   font-family: 'Heebo', sans-serif;
 }
+
+html {
+  width: 100vw;
+}
+
+body {
+  overflow: hidden;
+}
+
 * {
   outline: none;
 }
