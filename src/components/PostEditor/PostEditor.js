@@ -12,6 +12,7 @@ import 'react-day-picker/lib/style.css';
 
 import CircularProgressbar from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { Formik } from 'formik';
 
 
 import MomentLocaleUtils, {
@@ -62,8 +63,7 @@ class PostEditor extends React.Component {
         this.setState({files: acceptedFiles});
     }
 
-    addNewEvent = async (e) => {
-        e.preventDefault();
+    addNewEvent = async (values) => {
 
         const {user, firebase} = this.props.firebase;
         const {files} = this.state;
@@ -79,7 +79,7 @@ class PostEditor extends React.Component {
         uploadTask.on('state_changed', 
             snapshot => this.handleUploadStateChange(snapshot),
             error => this.handleUploadError(error),
-            () => this.handleUploadSuccess(uploadTask) 
+            () => this.handleUploadSuccess(uploadTask, values) 
         );
     }
 
@@ -92,27 +92,22 @@ class PostEditor extends React.Component {
         console.log(error);
     }
 
-    handleUploadSuccess = (uploadTask) => {
+    handleUploadSuccess = (uploadTask, values) => {
         const {user, firebase} = this.props.firebase;
-        console.log(this.state.date);
+        console.log(values);
         uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
             firebase.events().add({
                 date: this.state.date,
-                description: this.state.description,
+                description: values.eventDescription,
                 image: downloadURL,
                 location: firebase.Geopoint(this.state.coordinates.lat, this.state.coordinates.lng),
-                payout: this.state.payout,
-                title: this.state.title,
-                userID: user.uid
+                payout: values.eventPayout,
+                title: values.eventTitle,
+                userID: user.uid,
+                subscribers: []
             });
         });
     }
-
-    async doUploadPost () {
-
-    }
-
-
 
     getPreviews() {
         const {files} = this.state;
@@ -137,105 +132,140 @@ class PostEditor extends React.Component {
     handleDayChange = day => {
         this.setState({ date: day });
     }
+
+    
     
     render() {
         const { percentage } = this.state;
+
+        const initialFormValues = {
+            eventTitle: "",
+            eventPayout: "",
+            eventDescription: ""
+        };
+          
         return(
             <div className="post-editor">
                 <h3>Create New Post</h3>
-                <form onSubmit={this.addNewEvent}>
-                    <div className="input-container col-span-6">
-                        <Dropzone onDrop={acceptedFiles => this.setFiles(acceptedFiles)}>
-                            {({getRootProps, getInputProps}) => (
-                                <section>
-                                    { 
-                                    !this.state.files.length ?
-                                        <div {...getRootProps()}>
-                                            <input {...getInputProps()} />
-                                            <span className="dropzone">Drag & drop or click to upload event header image.</span>
-                                        </div>
-                                    :
-                                        <div className="thumbnails">
-                                            <div className="cancel-button" onClick={this.cancelPreviews}>
-                                                <FiX size="1.23rem" color="#FFF"/>
-                                            </div>
-                                            {this.getPreviews()}
-                                        </div>
-                                    }
-                                </section>
-                            )}
-                        </Dropzone>
-                    </div>
-                    <div className="input-container col-span-6">
-                        <label>Event Title</label>
-                        <input type="text" />
-                    </div>
-                    <div className="input-container col-span-6">
-                        <label>Payout</label>
-                        <input type="text" />
-                    </div>
-                    <div className="input-container col-span-6">
-                        <label>Date</label>
-                        <DayPickerInput
-                            onDayChange={this.handleDayChange}
-                            formatDate={formatDate}
-                            parseDate={parseDate}
-                            placeholder={`${formatDate(new Date())}`}
-                        />
-                    </div>
-                    <div className="input-container col-span-6">
-                        <label>Location</label>
-                        <PlacesAutocomplete
-                            value={this.state.address}
-                            onChange={this.handleChange}
-                            onSelect={this.handleSelect}
-                        >
-                            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                            <div>
-                                <input
-                                {...getInputProps({
-                                    placeholder: 'Search Places ...',
-                                    className: 'location-search-input',
-                                })}
-                                ref={el => this.locationField = el}
-                                />
-                                <div className="autocomplete-dropdown-container">
-                                {loading && <div>Loading...</div>}
-                                {suggestions.map(suggestion => {
-                                    const className = suggestion.active
-                                    ? 'suggestion-item--active'
-                                    : 'suggestion-item';
-                                    // inline style for demonstration purpose
-                                    
-                                    return (
-                                    <div
-                                        {...getSuggestionItemProps(suggestion, {
-                                        className
-                                        })}
-                                    >
-                                        <span>{suggestion.description}</span>
+                <form>
+                <div className="input-container col-span-6">
+                    <Dropzone onDrop={acceptedFiles => this.setFiles(acceptedFiles)}>
+                        {({getRootProps, getInputProps}) => (
+                            <section>
+                                { 
+                                !this.state.files.length ?
+                                    <div {...getRootProps()}>
+                                        <input {...getInputProps()} />
+                                        <span className="dropzone">Drag & drop or click to upload event header image.</span>
                                     </div>
-                                    );
-                                })}
-                                </div>
-                            </div>
-                            )}
-                        </PlacesAutocomplete>
-                    </div>
-                    <div className="input-container col-span-6">
-                        <label>Description</label>
-                        <textarea />
-                    </div>
-                    <div className="input-container col-span-6">
-                        <button type="submit" className="add-new-event">
-                            Add New Event
-                        </button>
-                        <CircularProgressbar
-                            percentage={percentage}
-                            text={`${percentage}%`}
-                        />
-                    </div>
+                                :
+                                    <div className="thumbnails">
+                                        <div className="cancel-button" onClick={this.cancelPreviews}>
+                                            <FiX size="1.23rem" color="#FFF"/>
+                                        </div>
+                                        {this.getPreviews()}
+                                    </div>
+                                }
+                            </section>
+                        )}
+                    </Dropzone>
+                </div>
                 </form>
+                <Formik
+                initialValues={initialFormValues}
+                onSubmit={(values) => {
+                        console.log(values);
+                        this.addNewEvent(values);
+                    }
+                }
+                  render={({
+                    values,
+                    handleChange,
+                    handleSubmit,
+                  }) => (
+                        <form onSubmit={handleSubmit}>
+                            <div className="input-container col-span-6">
+                                <label>Event Title</label>
+                                <input 
+                                    type="text" 
+                                    name="eventTitle" 
+                                    value={values.eventTitle} 
+                                    onChange={handleChange} 
+                                />
+                            </div>
+                            <div className="input-container col-span-6">
+                                <label>Payout</label>
+                                <input 
+                                    type="text" 
+                                    name="eventPayout" 
+                                    value={values.eventPayout} 
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div className="input-container col-span-6">
+                                <label>Date</label>
+                                <DayPickerInput
+                                    onDayChange={this.handleDayChange}
+                                    formatDate={formatDate}
+                                    parseDate={parseDate}
+                                    placeholder={`${formatDate(new Date())}`}
+                                />
+                            </div>
+                            <div className="input-container col-span-6">
+                                <label>Location</label>
+                                <PlacesAutocomplete
+                                    value={this.state.address}
+                                    onChange={this.handleChange}
+                                    onSelect={this.handleSelect}
+                                >
+                                    {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                    <div>
+                                        <input
+                                        {...getInputProps({
+                                            placeholder: 'Search Places ...',
+                                            className: 'location-search-input',
+                                        })}
+                                        ref={el => this.locationField = el}
+                                        />
+                                        <div className="autocomplete-dropdown-container">
+                                        {loading && <div>Loading...</div>}
+                                        {suggestions.map(suggestion => {
+                                            const className = suggestion.active
+                                            ? 'suggestion-item--active'
+                                            : 'suggestion-item';
+                                            // inline style for demonstration purpose
+                                            
+                                            return (
+                                            <div
+                                                {...getSuggestionItemProps(suggestion, {
+                                                className
+                                                })}
+                                            >
+                                                <span>{suggestion.description}</span>
+                                            </div>
+                                            );
+                                        })}
+                                        </div>
+                                    </div>
+                                    )}
+                                </PlacesAutocomplete>
+                            </div>
+                            <div className="input-container col-span-6">
+                                <label>Description</label>
+                                <textarea onChange={handleChange} name="eventDescription" value={values.eventDescription}/>
+                            </div>
+                            <div className="input-container col-span-6">
+                                <button type="submit" className="add-new-event">
+                                    Add New Event
+                                </button>
+                                <CircularProgressbar
+                                    percentage={percentage}
+                                    text={`${percentage}%`}
+                                />
+                            </div>
+                        </form>
+                    )}
+                />
             </div>
         )
     }
