@@ -55,3 +55,7 @@
     border: none;
     font-weight: bold;
 }
+
+.side-view-bottom > button.unsubscribe {
+    background: #ff6348;
+}

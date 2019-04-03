@@ -20,6 +20,11 @@ body {
 * > * {
   box-sizing: border-box;
 }
+
+.hidden {
+  display: none;
+}
+
 .App {
   min-height: 100vh;
   width: 100%;
@@ -253,3 +258,4 @@ button[disabled]{
 .margin-half-rem {
   margin: .5rem;
 }
+

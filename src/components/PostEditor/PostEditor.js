@@ -36,7 +36,8 @@ class PostEditor extends React.Component {
             coordinates: {},
             files: [],
             percentage: 0,
-            fileURL: ""
+            fileURL: "",
+            uploading: false
         };
 
         this.locationField = React.createRef();
@@ -84,6 +85,7 @@ class PostEditor extends React.Component {
     }
 
     handleUploadStateChange(snapshot) {
+        this.setState({uploading: true})
         var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         this.setState({percentage: Math.round(progress)});
     }
@@ -104,7 +106,11 @@ class PostEditor extends React.Component {
                 payout: values.eventPayout,
                 title: values.eventTitle,
                 userID: user.uid,
+                time: values.eventTime,
+                participants: values.eventParticipants,
                 subscribers: []
+            }).then(() => {
+                document.location = "/events";
             });
         });
     }
@@ -141,7 +147,9 @@ class PostEditor extends React.Component {
         const initialFormValues = {
             eventTitle: "",
             eventPayout: "",
-            eventDescription: ""
+            eventDescription: "",
+            eventParticipants: 0,
+            eventTime: "10:00AM"
         };
           
         return(
@@ -203,6 +211,24 @@ class PostEditor extends React.Component {
                                 />
                             </div>
                             <div className="input-container col-span-6">
+                                <label>Particpants</label>
+                                <input 
+                                    type="text" 
+                                    name="eventParticipants" 
+                                    value={values.eventParticipants} 
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div className="input-container col-span-6">
+                                <label>Time</label>
+                                <input 
+                                    type="text" 
+                                    name="eventTime" 
+                                    value={values.eventTime} 
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div className="input-container col-span-6">
                                 <label>Date</label>
                                 <DayPickerInput
                                     onDayChange={this.handleDayChange}
@@ -255,13 +281,19 @@ class PostEditor extends React.Component {
                                 <textarea onChange={handleChange} name="eventDescription" value={values.eventDescription}/>
                             </div>
                             <div className="input-container col-span-6">
-                                <button type="submit" className="add-new-event">
+                                <button type="submit" className={`add-new-event ${this.state.uploading ? "hidden" : ""}`}>
                                     Add New Event
                                 </button>
-                                <CircularProgressbar
-                                    percentage={percentage}
-                                    text={`${percentage}%`}
-                                />
+                                <div style={{width: "100px", height: "100px"}} hidden={!this.state.uploading}>
+                                    <CircularProgressbar
+                                        percentage={percentage}
+                                        text={`${percentage}%`}
+                                        styles={{
+                                            path: { stroke: `rgba(46, 213, 115, 1)` },
+                                            text: { fill: '#2ed573', fontSize: '0' },
+                                        }}
+                                    />
+                                </div>
                             </div>
                         </form>
                     )}

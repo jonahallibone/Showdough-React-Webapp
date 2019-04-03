@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withFirebase } from '../Firebase';
 
+import "./Login.css";
+
 class Login extends Component {
 
     constructor(props) {
@@ -29,8 +31,9 @@ class Login extends Component {
 
     render() {
         return (
-            <div>
-                <button onClick={this.loginWithFacebook}>Login with Facebook</button>
+            <div className="login-window">
+                <h3>Please login with one of the provided options</h3>
+                <button onClick={this.loginWithFacebook} className="login-button facebook">Login with Facebook</button>
             </div>
         )
     }
