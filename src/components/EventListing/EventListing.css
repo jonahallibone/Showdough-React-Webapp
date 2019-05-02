@@ -11,6 +11,33 @@
     height: calc((66vw - 3rem ) / 3* .5625)
 }
 
+@media screen and (max-width: 1350px) {
+    .event-listing-top {
+        border-radius: 5px;
+        width: 100%;
+        overflow: hidden;
+        height: calc((66vw - 3rem ) / 2 * .5625)
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .event-listing-top {
+        border-radius: 5px;
+        width: 100%;
+        overflow: hidden;
+        height: calc((100vw - 1.5rem ) / 2* .5625)
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .event-listing-top {
+        border-radius: 5px;
+        width: 100%;
+        overflow: hidden;
+        height: calc((100vw - 1.5rem ) * .5625)
+    }
+}
+
 .event-listing-top img {
     object-fit: cover;
     height: 100%;

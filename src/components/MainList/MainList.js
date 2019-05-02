@@ -76,7 +76,7 @@ class MainList extends Component {
     renderMap() {
         const {selectedEvent, selectedEventID, events} = this.state;
         return (
-            <div style={{position: "relative"}}>
+            <div className="event-map-main" style={{position: "relative"}}>
                 <PostSideView 
                     event={selectedEvent} 
                     eventID={selectedEventID}

@@ -107,6 +107,7 @@ class PostEditor extends React.Component {
                 title: values.eventTitle,
                 userID: user.uid,
                 time: values.eventTime,
+                endTime: values.endTime,
                 participants: values.eventParticipants,
                 subscribers: []
             }).then(() => {
@@ -149,7 +150,8 @@ class PostEditor extends React.Component {
             eventPayout: "",
             eventDescription: "",
             eventParticipants: 0,
-            eventTime: "10:00AM"
+            eventTime: "10:00AM",
+            endTime: "11:00AM"
         };
           
         return(
@@ -220,11 +222,20 @@ class PostEditor extends React.Component {
                                 />
                             </div>
                             <div className="input-container col-span-6">
-                                <label>Time</label>
+                                <label>Start Time</label>
                                 <input 
                                     type="text" 
                                     name="eventTime" 
                                     value={values.eventTime} 
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            <div className="input-container col-span-6">
+                                <label>End Time</label>
+                                <input 
+                                    type="text" 
+                                    name="endTime" 
+                                    value={values.endTime} 
                                     onChange={handleChange}
                                 />
                             </div>

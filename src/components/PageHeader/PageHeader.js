@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import {Link} from "react-router-dom";
-import { FiBell, FiHome, FiHelpCircle, FiCalendar, FiSearch } from "react-icons/fi";
+import { FiBell, FiMenu, FiHome, FiHelpCircle, FiCalendar, FiSearch } from "react-icons/fi";
 
 import "./PageHeader.css";
 import { withFirebase } from '../Firebase/context';
@@ -31,27 +31,27 @@ class PageHeader extends Component {
         return(
             <header className="page-header">
                 <div className="header-right">
-                    <h3>ShowDough</h3>
+                    <h3 style={{color: "#FFF"}}>ShowDough</h3>
                     <div className="page-header-search"> 
-                        <FiSearch size="1.23rem" color="#747d8c"/>
+                        <FiSearch size="1.13rem" color="#FFF"/>
                         <input placeholder="Search All Events"/>
                     </div>
                 </div>
                 <div className="header-left">
                     <Link to="/" className="header-link">
-                        <FiHome size="1.23rem" color="#747d8c"/>
+                        <FiHome size="1.13rem" color="#FFF"/>
                         Home
                     </Link>
                     <Link to="/events" className="header-link">
-                        <FiCalendar size="1.23rem" color="#747d8c"/>
+                        <FiCalendar size="1.13rem" color="#FFF"/>
                         Events
                     </Link>
                     <Link to="/help" className="header-link">
-                        <FiHelpCircle size="1.23rem" color="#747d8c"/>
+                        <FiHelpCircle size="1.13rem" color="#FFF"/>
                         Help
                     </Link>
                     <button className="noti-button">
-                        <FiBell size="1.23rem" color="#747d8c"/>
+                        <FiBell size="1.13rem" color="#FFF"/>
                     </button>
                     {
                         this.props.firebase.user ? 
@@ -71,6 +71,9 @@ class PageHeader extends Component {
                         :
                             <Link to="/login" className="profile-button">Login</Link>
                     }
+                </div>
+                <div className="hamburger">
+                    <FiMenu size="2rem" color="#FFF"/>
                 </div>
             </header>
         )
