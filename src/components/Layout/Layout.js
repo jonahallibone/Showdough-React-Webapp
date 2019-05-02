@@ -7,7 +7,6 @@ import {
     withRouter,
     Redirect
 } from 'react-router-dom'
-import Navigation from "../Navigation/Navigation";
 import Login from "../Login/Login";
 import "./Layout.css";
 import PageHeader from '../PageHeader/PageHeader';

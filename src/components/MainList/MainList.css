@@ -7,6 +7,7 @@
 @media all and (max-width: 960px) {
     .main-list-container {
         grid-template-columns: 1fr;
+        height: calc(100vh - 150px);
     }
 }
 
@@ -24,6 +25,13 @@
 .main-list {
     padding: 3rem 3rem;
     overflow-y: scroll;
+}
+
+@media all and (max-width: 960px) {
+    .main-list {
+        padding: 1.5rem;
+        padding-bottom: 10rem;
+    }
 }
 
 .main-list h4 {

@@ -23,7 +23,15 @@
     overflow-y: auto;
     overflow-x: hidden;
     height: calc(100vh - 75px);
+    -webkit-overflow-scrolling: touch; /* Lets it scroll lazy */
 }
+
+@media all and (max-width: 960px) {
+    .layout-content-scroll {
+        height: calc(100vh - 150px);
+    }
+}
+
 
 .text-white {
     color: #FFF;
