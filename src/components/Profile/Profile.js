@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import "./Profile.css";
 import PostEditor from '../PostEditor/PostEditor';
 import { withFirebase } from '../Firebase';
-import {withRouter} from "react-router-dom";
+import {withRouter, Link} from "react-router-dom";
 
 class Profile extends React.Component {
     constructor(props) {
@@ -56,6 +56,9 @@ class Profile extends React.Component {
                     <button className="add-new-event" onClick={this.navToNewEvent}>
                         Add New Event
                     </button>
+                    <Link to="/business" className="add-new-event" style={{marginLeft: "1rem"}}>
+                        Add Business Account
+                    </Link>
                 </div>
                 <div className="profile-content">
                     <div className="main-profile-content">

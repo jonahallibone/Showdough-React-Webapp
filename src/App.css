@@ -110,6 +110,12 @@ a {
   grid-column-end: 6;
 }
 
+@media all and (max-width: 960px) {
+  .input-container.col-span-6 {
+      grid-column-end: 12;
+  }
+}
+
 .input-container label {
   font-size: .88rem;
   font-weight: bold;

@@ -1,0 +1,16 @@
+.add-business {
+    background: #FFF;
+    width: 100%;
+    border-radius: 4px;
+    padding: 3rem;
+}
+
+label {
+    display: block;
+    margin-top: 1rem;
+}
+
+.add-business input {
+    display: block;
+    width: 80%;
+}

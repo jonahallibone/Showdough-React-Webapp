@@ -11,6 +11,12 @@
     transform: translate(-50%, -50%);
 }
 
+@media all and (max-width: 960px) {
+    .login-window {
+        width: calc(100% - 6rem);
+    }
+}
+
 .login-button {
     width: 100%;
     border-radius: 4px;

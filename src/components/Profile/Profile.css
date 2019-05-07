@@ -17,6 +17,12 @@ h4.sub {
     grid-template-columns: 1fr 1fr;
 }
 
+@media all and (max-width: 960px) {
+    .profile-content {
+        grid-template-columns: 1fr;
+    }
+}
+
 .add-new-event {
     padding: .6rem 1rem;
     background: #2ed573;

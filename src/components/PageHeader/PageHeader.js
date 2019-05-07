@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import {Link} from "react-router-dom";
-import { FiBell, FiMenu, FiHome, FiHelpCircle, FiCalendar, FiSearch } from "react-icons/fi";
+import { FiBell, FiUser, FiMenu, FiHome, FiHelpCircle, FiCalendar, FiSearch, FiLogOut, FiLogIn } from "react-icons/fi";
 
 import "./PageHeader.css";
 import { withFirebase } from '../Firebase/context';
@@ -79,6 +79,24 @@ function PageHeader(props) {
                     </div>
                 </div>
                 <div className="navigation-side--nav-list">
+                    {
+                        props.firebase.user ? 
+                            <>
+                                <div className="header-link" onClick={goToProfile}>
+                                    <FiUser size="1.13rem" color="#00D770"/>
+                                    {user.displayName}
+                                </div>
+                                <div className="header-link" onClick={logout}>
+                                    <FiLogOut size="1.13rem" color="#00D770" />
+                                    Logout
+                                </div>
+                            </>
+                        :
+                        <Link to="/" className="header-link">
+                            <FiLogIn size="1.13rem" color="#00D770"/>
+                            Log in
+                        </Link>
+                    }
                     <Link to="/" className="header-link">
                         <FiHome size="1.13rem" color="#00D770"/>
                         Home
@@ -90,6 +108,10 @@ function PageHeader(props) {
                     <Link to="/help" className="header-link">
                         <FiHelpCircle size="1.13rem" color="#00D770"/>
                         Help
+                    </Link>
+                    <Link to="/notifications" className="header-link">
+                        <FiBell size="1.13rem" color="#00D770"/>
+                        Notifications
                     </Link>
                 </div>
                     

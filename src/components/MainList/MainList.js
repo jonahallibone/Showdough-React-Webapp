@@ -74,13 +74,9 @@ class MainList extends Component {
     }
     
     renderMap() {
-        const {selectedEvent, selectedEventID, events} = this.state;
+        const { events } = this.state;
         return (
             <div className="event-map-main" style={{position: "relative"}}>
-                <PostSideView 
-                    event={selectedEvent} 
-                    eventID={selectedEventID}
-                />
                 <EventMap 
                     events={events}
                     isMarkerShown
@@ -94,10 +90,15 @@ class MainList extends Component {
     }
     
     render() {
+        const {selectedEvent, selectedEventID, events} = this.state;
         return(
             <div className="main-list-container">
                 {this.renderEvents()}
                 {this.renderMap()}
+                <PostSideView 
+                    event={selectedEvent} 
+                    eventID={selectedEventID}
+                />
             </div>
         )
     }
