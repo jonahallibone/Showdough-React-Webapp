@@ -92,7 +92,7 @@ function PageHeader(props) {
                                 </div>
                             </>
                         :
-                        <Link to="/" className="header-link">
+                        <Link to="/login" className="header-link">
                             <FiLogIn size="1.13rem" color="#00D770"/>
                             Log in
                         </Link>
