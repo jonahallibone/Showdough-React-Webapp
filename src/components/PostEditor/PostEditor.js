@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import {Elements, StripeProvider} from 'react-stripe-elements';
+
 import "./PostEditor.css";
 import PlacesAutocomplete, {
     geocodeByAddress,
@@ -21,6 +23,7 @@ import MomentLocaleUtils, {
 } from 'react-day-picker/moment';
 
 import 'moment/locale/it';
+import CheckOut from './CheckOut/CheckOut';
 
 
 
@@ -291,6 +294,13 @@ class PostEditor extends React.Component {
                                 <label>Description</label>
                                 <textarea onChange={handleChange} name="eventDescription" value={values.eventDescription}/>
                             </div>
+                            <StripeProvider apiKey="pk_test_HHv3GbIGGrKu4WS2Gk78WkBf">
+                                <div className="example input-container col-span-6">
+                                    <Elements>
+                                        <CheckOut />
+                                    </Elements>
+                                </div>
+                            </StripeProvider>
                             <div className="input-container col-span-6">
                                 <button type="submit" className={`add-new-event ${this.state.uploading ? "hidden" : ""}`}>
                                     Add New Event
