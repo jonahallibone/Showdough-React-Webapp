@@ -7,19 +7,31 @@ import "./AddBusiness.css";
 const AddBusiness = ({firebase}) => {
 
     function submitBusiness(values) {
-        
-        console.log(values);
-        firebase.firebase.businesses().add({
-            name: values.name,
-            businessName: values.businessName,
-            businessEmail: values.businessEmail,
-            businessAddress: values.businessAddress,
-            businessPhoneNumber: values.businessPhoneNumber,
-            einTin: values.einTin,
-            user: firebase.user.uid
-        }).then(() => {
-            document.location = "/profile";
-        });
+
+        var newBusinessRef = firebase.firebase.businesses().doc();
+        var userRef = firebase.firebase.users().doc(firebase.user.uid);
+
+        console.log(firebase.user.uid)
+
+        firebase.firebase.transaction(transaction => {
+            console.log(userRef);
+            return transaction.get(userRef).then(userDoc => {
+                transaction.set(newBusinessRef, {
+                   name: values.name,
+                   businessName: values.businessName,
+                   businessEmail: values.businessEmail,
+                   businessAddress: values.businessAddress,
+                   businessPhoneNumber: values.businessPhoneNumber,
+                   einTin: values.einTin,
+                   user: firebase.user.uid
+               })                
+
+               transaction.set(userRef, {
+                      businessAccount: true,
+                      businessId: newBusinessRef.id
+                })
+            })
+        }).then(res => console.log(res)).catch(error => console.log(error))
     }
 
     return(

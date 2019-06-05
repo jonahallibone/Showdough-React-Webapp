@@ -11,7 +11,7 @@ function PostSideView({event, eventID, firebase}) {
 
         if(Object.keys(event).length && user) {
             
-            const found = event.subscribers.some(el => el.id === firebase.user.uid);
+            const found = event.subscribers.some(el => el === firebase.user.uid);
             console.log(found);
             if(found)  {
                 setButtonText("Unsubscribe");
@@ -31,15 +31,12 @@ function PostSideView({event, eventID, firebase}) {
     });
 
     function handleSubscribe() {
+
         if(!subscribed) {
             setButtonText("Unsubscribe");
 
             firebase.firebase.events().doc(eventID).update({
-                subscribers: firebase.firebase.ArrayUnion({
-                    name: firebase.user.displayName,
-                    profile_picture: firebase.user.photoURL,
-                    id: firebase.user.uid
-                })
+                subscribers: firebase.firebase.ArrayUnion(firebase.user.uid)
             });
 
             setSubscribed(true);
@@ -49,11 +46,7 @@ function PostSideView({event, eventID, firebase}) {
             setButtonText("Sign Up!");
             
             firebase.firebase.events().doc(eventID).update({
-                subscribers: firebase.firebase.ArrayRemove({
-                    name: firebase.user.displayName,
-                    profile_picture: firebase.user.photoURL,
-                    id: firebase.user.uid
-                })
+                subscribers: firebase.firebase.ArrayRemove(firebase.user.uid)
             });
 
             setSubscribed(false);

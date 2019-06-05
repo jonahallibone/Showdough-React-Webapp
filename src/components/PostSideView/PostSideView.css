@@ -1,6 +1,6 @@
 .post-side-view {
     width: 33.333333%;
-    height: 100%;
+    height: calc(100% - 75px);
     position: fixed;
     background: #FFF;
     transform: translateX(100%);

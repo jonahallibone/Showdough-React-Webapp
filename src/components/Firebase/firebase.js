@@ -36,6 +36,10 @@ class Firebase {
 
   events = () => this.db.collection(`events`);
   businesses = ()  => this.db.collection(`businesses`)
+  users = ()  => this.db.collection(`users`)
+
+  transaction = (transaction) => this.db.runTransaction(transaction);
+
   ArrayUnion = (data) => new app.firestore.FieldValue.arrayUnion(data);
   ArrayRemove = (data) => new app.firestore.FieldValue.arrayRemove(data);
   Geopoint = (long,lat) => new app.firestore.GeoPoint(long, lat)

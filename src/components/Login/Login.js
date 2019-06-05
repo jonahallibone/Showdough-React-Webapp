@@ -21,12 +21,34 @@ class Login extends Component {
             this.setState({ error: null });
             setUser(socialAuthUser.user);
 
-        //   this.props.history.push("/events");
+            this.findOrCreateUser(socialAuthUser);
         })
         .catch(error => {
           this.setState({ error });
         });
   
+    }
+
+    findOrCreateUser = async (socialAuthUser) => {
+        const doc = await this.props.firebase.firebase.users().doc(socialAuthUser.user.uid).get()
+            .then(snapshot => {
+                console.log(snapshot)
+                if(!snapshot.exists) {
+                    this.props.firebase.firebase.users().doc(socialAuthUser.user.uid)
+                    .set({
+                        user_id: socialAuthUser.user.uid,
+                        lastLogin: new Date().getTime()
+                    })
+                }
+
+                else if (snapshot.exists) {
+                    this.props.firebase.firebase.users().doc(socialAuthUser.user.uid).update({
+                        lastLogin: new Date().getTime()
+                    })
+                }
+            });
+
+        return doc;
     }
 
     render() {
