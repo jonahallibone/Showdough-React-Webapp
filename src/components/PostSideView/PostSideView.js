@@ -11,8 +11,9 @@ function PostSideView({event, eventID, firebase}) {
 
         if(Object.keys(event).length && user) {
             
-            const found = event.subscribers.some(el => el === firebase.user.uid);
-            console.log(found);
+            // If subscriber array, check for the user's uid
+            const found = event.subscribers ? event.subscribers.some(el => el === firebase.user.uid) : null;
+
             if(found)  {
                 setButtonText("Unsubscribe");
                 setSubscribed(true);

@@ -32,7 +32,6 @@ class Login extends Component {
     findOrCreateUser = async (socialAuthUser) => {
         const doc = await this.props.firebase.firebase.users().doc(socialAuthUser.user.uid).get()
             .then(snapshot => {
-                console.log(snapshot)
                 if(!snapshot.exists) {
                     this.props.firebase.firebase.users().doc(socialAuthUser.user.uid)
                     .set({
@@ -46,7 +45,7 @@ class Login extends Component {
                         lastLogin: new Date().getTime()
                     })
                 }
-            });
+            })
 
         return doc;
     }

@@ -26,7 +26,7 @@ const AddBusiness = ({firebase}) => {
                    user: firebase.user.uid
                })                
 
-               transaction.set(userRef, {
+               transaction.update(userRef, {
                       businessAccount: true,
                       businessId: newBusinessRef.id
                 })

@@ -27,6 +27,7 @@ class App extends Component {
     this.state = {
       firebase: firebase,
       setUser: this.setUser,
+      setExtraData: this.setExtraData,
       location: null
     }
 
@@ -56,7 +57,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* {this.props.coords.latitude} */}
         <Router>
           <FirebaseContext.Provider value={this.state}>
             <Layout/>

@@ -78,7 +78,7 @@ class Profile extends React.Component {
                     {
                         this.state.businessAccount 
                         ?
-                            <Link to="/business" className="add-new-event" style={{marginLeft: "1rem"}}>
+                            <Link to="/business/events" className="add-new-event" style={{marginLeft: "1rem"}}>
                                 View Business Events
                             </Link>
                         :

@@ -15,6 +15,8 @@ import PostEditor from "../PostEditor/PostEditor";
 import Profile from "../Profile/Profile";
 import {withFirebase} from "../Firebase"
 import AddBusiness from '../AddBusiness/AddBusiness';
+import BusinessEventList from '../BusinessEventList/BusinessEventList';
+import EventMembers from '../EventMembers/EventMembers';
 class Layout extends Component {
     constructor(props) {
         super(props);
@@ -49,6 +51,8 @@ class Layout extends Component {
                                 )} />
                                 <Route exact path="/create" component={PostEditor}/>
                                 <Route exact path="/business" component={AddBusiness}/>
+                                <Route exact path="/business/events" component={BusinessEventList} />
+                                <Route exact path="/business/events/:id" component={EventMembers} />
                             </Switch>                        
                         </div>
                     </div>

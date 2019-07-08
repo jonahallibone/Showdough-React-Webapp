@@ -40,7 +40,8 @@ class PostEditor extends React.Component {
             files: [],
             percentage: 0,
             fileURL: "",
-            uploading: false
+            uploading: false,
+            doSubmit: false
         };
 
         this.locationField = React.createRef();
@@ -79,6 +80,7 @@ class PostEditor extends React.Component {
         const fileName = `${files[0].name.replace(/\s+/g, '-').toLowerCase()}-${new Date().getTime()}`;
         let uploadTask = firebase.storage.child(fileName).put(files[0]);
     
+        this.setState({doSubmit: true})
 
         uploadTask.on('state_changed', 
             snapshot => this.handleUploadStateChange(snapshot),
@@ -297,7 +299,9 @@ class PostEditor extends React.Component {
                             <StripeProvider apiKey="pk_test_HHv3GbIGGrKu4WS2Gk78WkBf">
                                 <div className="example input-container col-span-6">
                                     <Elements>
-                                        <CheckOut />
+                                        <CheckOut
+                                            doSubmit={this.state.doSubmit}
+                                        />
                                     </Elements>
                                 </div>
                             </StripeProvider>

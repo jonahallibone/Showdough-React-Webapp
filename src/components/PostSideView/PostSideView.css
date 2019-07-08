@@ -53,6 +53,12 @@
     width: 100%;
 }
 
+@media all and (max-width: 600px) {
+    .side-view-bottom {
+        transform: translateY(-100%);
+    }
+}
+
 .side-view-bottom > button {
     padding: .75rem 1rem;
     border-radius: 4px;

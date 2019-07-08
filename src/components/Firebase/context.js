@@ -2,7 +2,9 @@ import React from "react";
 
 const FirebaseContext = React.createContext({
     user: {},
-    setUser: () => {}
+    setUser: () => {},
+    extraData: {},
+    setExtraData: () => {}
 });
 
 export const withFirebase = Component => props => (
