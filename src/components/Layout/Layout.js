@@ -17,6 +17,7 @@ import {withFirebase} from "../Firebase"
 import AddBusiness from '../AddBusiness/AddBusiness';
 import BusinessEventList from '../BusinessEventList/BusinessEventList';
 import EventMembers from '../EventMembers/EventMembers';
+import ProfileSettings from '../ProfileSettings/ProfileSettings';
 class Layout extends Component {
     constructor(props) {
         super(props);
@@ -53,6 +54,7 @@ class Layout extends Component {
                                 <Route exact path="/business" component={AddBusiness}/>
                                 <Route exact path="/business/events" component={BusinessEventList} />
                                 <Route exact path="/business/events/:id" component={EventMembers} />
+                                <Route exact path="/profile/settings" component={ProfileSettings} />
                             </Switch>                        
                         </div>
                     </div>

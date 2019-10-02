@@ -30,8 +30,8 @@ class Profile extends React.Component {
     async checkBusinessAccount() {
         const { firebase, user } = this.props.firebase;
         firebase.users().doc(user.uid).get().then(snapShot => {
-            console.log(snapShot.data().businessAccount);
-            if(snapShot.data().businessAccount) {
+            console.log(snapShot.data().hasOwnProperty("businessAccount"));
+            if(snapShot.data().hasOwnProperty("businessAccount")) {
                 this.setState({businessAccount: true})
             }
         })
@@ -72,20 +72,25 @@ class Profile extends React.Component {
         return(
             <div id="profile">
                 <div className="profile-header">
-                    <button className="add-new-event" onClick={this.navToNewEvent}>
-                        Add New Event
-                    </button>
                     {
                         this.state.businessAccount 
                         ?
-                            <Link to="/business/events" className="add-new-event" style={{marginLeft: "1rem"}}>
-                                View Business Events
-                            </Link>
+                            <>
+                                <button className="add-new-event" onClick={this.navToNewEvent}>
+                                    Add New Event
+                                </button>
+                                <Link to="/business/events" className="add-new-event" style={{marginLeft: "1rem"}}>
+                                    View Business Events
+                                </Link>
+                            </>
                         :
                             <Link to="/business" className="add-new-event" style={{marginLeft: "1rem"}}>
                                 Add Business Account
                             </Link>
                     }
+                        <Link to="/profile/settings" className="add-new-event" style={{marginLeft: "1rem"}}>
+                            View Account Settings
+                        </Link>
                 </div>
                 <div className="profile-content">
                     <div className="main-profile-content">
