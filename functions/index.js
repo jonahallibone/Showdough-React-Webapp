@@ -52,11 +52,11 @@ const instantPayout = async (req, res) => {
     try {
       const payout = await stripe.payouts.create(
         {
-          amount: 1000,
+          amount: req.body.amount,
           currency: 'usd',
           method: 'instant',
         },
-        {stripe_account: CONNECTED_STRIPE_ACCOUNT_ID}
+        {stripe_account: req.body.stripe_token.id}
       );
 
       res.json({message: `Success ${JSON.stringify(payout)}`});
