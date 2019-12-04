@@ -47,6 +47,22 @@ const createCard = async (req, res) => {
   });
 }
 
+const updateAccountBalance = async (req, rest) => {
+  return cors(req, res, async () => {
+    try {
+      const incrementBalance = firebase.firestore.FieldValue.increment(req.body.amount);
+
+      const user = db
+      .collection('users')
+      .doc(req.body.uid)
+      .update({balance: incrementBalance});
+
+    } catch(err) {
+      res.send(err).end();
+    }
+  });
+}
+
 const instantPayout = async (req, res) => {
   return cors(req, res, async () => {
     try {

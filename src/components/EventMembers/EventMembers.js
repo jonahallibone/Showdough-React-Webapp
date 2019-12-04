@@ -10,9 +10,11 @@ const EventMembers = ({firebase, match}) => {
     const [users, setUsers] = useState([]);
     const [openScanner, setOpenScanner] = useState(false);
     const [event, setEvent] = useState({});
+
     useEffect(() => {
         getEventData();
-    }, [])
+    }, []);
+
 
     const getUserData = async (subscriber) => {
         const user = await firebase.firebase.users().doc(subscriber).get();
@@ -31,13 +33,11 @@ const EventMembers = ({firebase, match}) => {
     }
 
     const isUserValidated = userID => {
-        // console.log(event.validated.includes(userID), userID);
         if(!event.validated) return;
         return event.validated.includes(userID);
     }
 
     const listUsers = () => {
-
         return (
             users.map(user =>  {
                 const userValidated = isUserValidated(user.uid);
@@ -72,12 +72,16 @@ const EventMembers = ({firebase, match}) => {
         )
     }
 
-    const handleScan = data => {
+    const handleScan = async data => {
         console.log(data);
         if(data) {
-            firebase.firebase.events().doc(match.params.id).update({
+            const validated = await firebase.firebase.events().doc(match.params.id).get();
+            
+
+            await firebase.firebase.events().doc(match.params.id).update({
                 validated: firebase.firebase.ArrayUnion(data)
             });
+            
 
             setOpenScanner(false);
         }

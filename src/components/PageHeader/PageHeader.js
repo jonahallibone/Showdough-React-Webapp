@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
+import { useLocation } from "react-router-dom";
 
 import {Link} from "react-router-dom";
 import { FiBell, FiUser, FiMenu, FiHome, FiHelpCircle, FiCalendar, FiSearch, FiLogOut, FiLogIn } from "react-icons/fi";
@@ -11,6 +11,11 @@ function PageHeader(props) {
     console.log(props);
     const [menuVisible, setMenuVisible] = useState(false);
     const [sideNavigationOpen, setSideNavigationOpen] = useState(false);
+    const { pathname } = useLocation();
+
+    useEffect(() => {
+        setSideNavigationOpen(false);
+    }, [pathname]);
 
     const logout = () => {
         props.firebase.firebase.doSignOut();
@@ -58,7 +63,7 @@ function PageHeader(props) {
                             {user.displayName}
                             <div className="header-drop-down">
                                 <div className={`header-profile-menu ${menuVisible ? "visible" : ""}`}>
-                                    <button onClick={goToProfile}>
+                                    <button to="/profile" onClick={goToProfile}>
                                         Profile
                                     </button>
                                     <button onClick={logout}>
@@ -82,10 +87,10 @@ function PageHeader(props) {
                     {
                         props.firebase.user ? 
                             <>
-                                <div className="header-link" onClick={goToProfile}>
+                                <Link to="/profile" className="header-link">
                                     <FiUser size="1.13rem" color="#00D770"/>
                                     {user.displayName}
-                                </div>
+                                </Link>
                                 <div className="header-link" onClick={logout}>
                                     <FiLogOut size="1.13rem" color="#00D770" />
                                     Logout
